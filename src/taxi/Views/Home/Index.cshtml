@@ -1,0 +1,52 @@
+﻿@model IEnumerable<taxi.Models.News>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    hr {
+        border: none; 
+        color: red; 
+        background-color: red; 
+        height: 2px; 
+    }
+</style>
+<h1 align="center">A single order taxi service</h1>
+@if (User.IsInRole("Admins"))
+{
+    <table width="100%" align="center">
+        <tr>
+            <td width="80%" class="line"></td>
+            <td width="20%">
+                <div class="block">
+                    <a asp-action="Create">Create New News</a>
+                </div>
+            </td>
+    </table>
+}
+
+@foreach (var item in Model.Reverse())
+{
+    <hr>
+    <table width="100%" align="center">
+        <tr>
+            <td width="80%" class="line">
+                <div>
+                    <div>
+                        <div>
+                            <h2 class="title">@Html.DisplayFor(modelItem => item.Name)</h2>
+                            <p>@Html.DisplayFor(modelItem => item.DescriptionNews)</p>
+                                <img src="@item.PictureUrl" width="500px" />
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td width="20%">
+                @if (User.IsInRole("Admins"))
+                {
+                    <p align="right">  <a asp-action="Delete" asp-route-id="@item.Id">Delete</a></p>
+                }
+            </td>
+        </tr>
+    </table>
+}
+

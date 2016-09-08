@@ -1,0 +1,72 @@
+@model IEnumerable<taxi.Models.Comment>
+
+@{
+    ViewData["Title"] = "Comments";
+}
+
+<h2>Comments</h2>
+
+<table width="100%" align="center">
+    <tr>
+        <td width="80%" class="line"></td>
+        <td width="20%">
+            <div class="block">
+                <a asp-action="Create">Create New Comment</a>
+            </div>
+        </td>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            @if (User.IsInRole("Admins"))
+            {
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUserId)
+            </th>
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyTaxiId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+@if (User.IsInRole("Admins"))
+{
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUserId)
+            </td>
+}
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyTaxiId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @if (User.IsInRole("Admins"))
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> <p>|</p>
+                }
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                @if (User.IsInRole("Admins"))
+                {
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                }
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

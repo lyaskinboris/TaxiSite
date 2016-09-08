@@ -1,0 +1,49 @@
+@model taxi.Models.Comment
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Comment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+@if (User.IsInRole("Admins"))
+{
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUserId)
+        </dd>
+}
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyTaxiId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CompanyTaxiId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+    </dl>
+</div>
+<div>
+@if (User.IsInRole("Admins"))
+{
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <p>|</p>
+}
+    <a asp-action="Index">Back to List</a>
+</div>
